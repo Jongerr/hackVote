@@ -1,0 +1,23 @@
+{
+  "name": "hackvote",
+  "version": "1.0.0",
+  "description": "A simple voting app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jongerr/hackVote.git"
+  },
+  "keywords": [
+    "voting",
+    "simple"
+  ],
+  "author": "Travis Michie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jongerr/hackVote/issues"
+  },
+  "homepage": "https://github.com/Jongerr/hackVote#readme"
+}
