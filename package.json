@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Jongerr/hackVote/issues"
   },
-  "homepage": "https://github.com/Jongerr/hackVote#readme"
+  "homepage": "https://github.com/Jongerr/hackVote#readme",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dev": "0.0.1"
+  }
 }
