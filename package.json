@@ -26,7 +26,8 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "react": "^16.2.0",
-    "react-dev": "0.0.1"
+    "react-dev": "0.0.1",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
