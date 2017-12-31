@@ -46,6 +46,12 @@ class Topic extends React.Component {
           <button type="button" onClick={this.handleChoiceSubmit}>Add choice</button><br/>
           <input type="submit" value="Submit"/>
         </form>
+        <ul>
+          {this.state.choices.map((choice, index) => (
+              <li key={index.toString()}>{choice}</li>
+            )
+          )}
+        </ul>
       </div>
     )
   }
