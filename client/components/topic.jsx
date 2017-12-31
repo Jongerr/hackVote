@@ -42,7 +42,13 @@ class Topic extends React.Component {
         'Accept': 'application/json'
       },
       body: postBody
-    });
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      window.location = response.topic;
+    })
+    .catch((err) => console.log(err));
     e.preventDefault();
   }
 

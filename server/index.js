@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const testData = require('./helpers/testData.js');
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -14,8 +16,15 @@ app.get('/', (req, res) => {
 });
 
 app.post('/topic', (req, res) => {
-  console.log('REQUEST BODY:', req.body);
-  res.sendStatus(201);
+  //TODO: Hash topic
+  const topic = req.body.topic;
+  console.log('Request Body:', req.body);
+  res.json({topic});
+});
+
+app.get('/*', (req, res) => {
+  console.log('Accepting random request');
+  res.sendStatus(200);
 });
 
 const PORT = process.env.PORT || 8080;
