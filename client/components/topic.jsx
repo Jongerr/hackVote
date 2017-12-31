@@ -34,6 +34,15 @@ class Topic extends React.Component {
 
   handleTopicSubmit(e) {
     console.log('Submitting topic', this.state.topic);
+    const postBody = JSON.stringify(this.state);
+    fetch('/topic', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: postBody
+    });
     e.preventDefault();
   }
 

@@ -13,6 +13,11 @@ app.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
+app.post('/topic', (req, res) => {
+  console.log('REQUEST BODY:', req.body);
+  res.sendStatus(201);
+});
+
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
