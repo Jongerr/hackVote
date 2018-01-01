@@ -9,6 +9,8 @@ class TopicVote extends React.Component {
       topic: '',
       choices: []
     }
+
+    this.handleUpvote = this.handleUpvote.bind(this);
   }
 
   componentDidMount() {
@@ -22,15 +24,34 @@ class TopicVote extends React.Component {
       body: JSON.stringify({topicHash})
     })
     .then((response) => response.json())
-    .then((response) => console.log(response))
+    .then((response) => {
+      console.log('Vote data:', response);
+      this.setState({
+        topic: response.topic,
+        choices: response.choices
+      })
+    })
     .catch((err) => console.log(err));
+  }
+
+  handleUpvote(e) {
+    console.log('Upvoted choice at index:', e.target.value);
   }
 
   render() {
     return (
       <div>
-        <p>{JSON.stringify(window.location)}</p>
         Vote Page
+        <h3>{this.state.topic}</h3>
+        <ul>
+          {this.state.choices.map((choice, index) => (
+            <li key={index.toString()}>
+              <span>{choice.choice}</span>
+              <span>  Points: {choice.points}</span>
+              <button value={index.toString()} type="button" onClick={this.handleUpvote}> + </button>
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }
@@ -38,7 +59,3 @@ class TopicVote extends React.Component {
 
 
 export default TopicVote;
-
-// console.log('DOM element', document.getElementById('topic'));
-
-// ReactDOM.render(<TopicVote />, document.getElementById('topic'));
