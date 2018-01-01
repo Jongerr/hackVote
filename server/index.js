@@ -22,6 +22,15 @@ app.post('/topic', (req, res) => {
   res.json({topic});
 });
 
+app.post('/vote', (req, res) => {
+  const topicHash = req.body.topicHash;
+  if(testData[topicHash]) {
+    res.json(testData[topicHash]);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 app.get('/*', (req, res) => {
   console.log('Accepting random request');
   res.sendFile(path.join(__dirname, '../client/topic.html'));
