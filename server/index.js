@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const crypto = require('crypto');
 
 const testData = require('./helpers/testData.js');
 
@@ -16,10 +17,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/topic', (req, res) => {
-  //TODO: Hash topic
-  const topic = req.body.topic;
+  const topicHash = crypto.createHash('md5').update(req.body.topic).digest("hex").slice(0, 6);
+  console.log('Topic Hash:', topicHash);
   console.log('Request Body:', req.body);
-  res.json({topic});
+  res.json({topicHash});
 });
 
 app.post('/vote', (req, res) => {

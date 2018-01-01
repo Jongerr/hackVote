@@ -46,7 +46,7 @@ class TopicForm extends React.Component {
     .then((response) => response.json())
     .then((response) => {
       console.log(response);
-      window.location = response.topic;
+      window.location = response.topicHash;
     })
     .catch((err) => console.log(err));
     e.preventDefault();
