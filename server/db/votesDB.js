@@ -15,7 +15,7 @@ const topicSchema = mongoose.Schema({
   votes: [Number]
 });
 
-const Topic = mongoose.model('votes', topicSchema);
+const Topic = mongoose.model('topic', topicSchema);
 
 const saveTopic = (topicObj, callback) => {
   let topic = new Topic({
@@ -30,6 +30,28 @@ const saveTopic = (topicObj, callback) => {
     else { callback(); }
   })
 };
+
+const findTopic = (topicHash, callback) => {
+  Topic.findOne({'hash': topicHash}, (err, topic) => {
+    if(err) console.log(err);
+    else {
+      console.log('Topic from db:', topic);
+      callback(topic.toObject());
+    }
+  });
+};
+
+const modifyTopicVotes = (topicHash, newScores, callback) => {
+  Topic.findOne({ 'hash': topicHash }, (err, topic) => {
+    if (err) console.log(err);
+    else {
+      topic.votes = newScores;
+      topic.save()
+        .then((doc) => callback())
+        .catch((err) => console.log(err));
+    }
+  });
+}
 
 module.exports.Vote = Vote;
 module.exports.saveTopic = saveTopic;
