@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Topic extends React.Component {
+class TopicForm extends React.Component {
   constructor(props) {
     super(props);
     
@@ -73,4 +73,4 @@ class Topic extends React.Component {
 }
 
 
-export default Topic;
+export default TopicForm;

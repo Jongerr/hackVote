@@ -24,7 +24,7 @@ app.post('/topic', (req, res) => {
 
 app.get('/*', (req, res) => {
   console.log('Accepting random request');
-  res.sendStatus(200);
+  res.sendFile(path.join(__dirname, '../client/topic.html'));
 });
 
 const PORT = process.env.PORT || 8080;
