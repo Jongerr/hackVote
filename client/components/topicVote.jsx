@@ -35,7 +35,7 @@ class TopicVote extends React.Component {
     .catch((err) => console.log(err));
   }
 
-  handleUpvote(e) {
+  getUpdatedScore(e) {
     console.log('Upvoted choice at index:', e.target.classList[0]);
     let newChoices = this.state.choices.slice();
     if(e.target.classList[0] === 'inactive') {
@@ -45,8 +45,27 @@ class TopicVote extends React.Component {
       newChoices[e.target.value].points -= 1;
       e.target.classList = ['inactive'];
     }
+    return newChoices;
+  }
+
+  handleUpvote(e) {
+    let newChoices = this.getUpdatedScore(e);
     this.setState({
       choices: newChoices
+    }, () => {
+      const topicHash = window.location.pathname.slice(1);
+      const scores = this.state.choices.map((choice) => choice.points);      
+      let putBody = {topicHash, scores};
+      fetch('/vote', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(putBody)
+      })
+      .then((response) => console.log('Successfully put Scores:', response))
+      .catch((err) => console.log(err));
     });
   }
 

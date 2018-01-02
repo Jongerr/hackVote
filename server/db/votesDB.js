@@ -35,7 +35,6 @@ const findTopic = (topicHash, callback) => {
   Topic.findOne({'hash': topicHash}, (err, topic) => {
     if(err) console.log(err);
     else {
-      console.log('Topic from db:', topic);
       callback(topic.toObject());
     }
   });
