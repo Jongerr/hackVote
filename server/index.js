@@ -30,12 +30,13 @@ app.post('/topic', (req, res) => {
 
 app.post('/vote', (req, res) => {
   const topicHash = req.body.topicHash;
-  if(testData[topicHash]) {
-    res.json(testData[topicHash]);
-  } else {
-    res.sendStatus(404);
-  }
+  db.findTopic(topicHash, (topicObj) => {
+    console.log('Received topic obj:', topicObj);
+    res.json(topicObj);
+  });
 });
+
+//TODO: Add PUT route for /vote
 
 app.get('/*', (req, res) => {
   console.log('Accepting random request');

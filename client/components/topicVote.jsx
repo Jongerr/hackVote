@@ -26,9 +26,10 @@ class TopicVote extends React.Component {
     .then((response) => response.json())
     .then((response) => {
       console.log('Vote data:', response);
+      const choices = response.choices.map((choice, index) => ({choice: choice, points: response.votes[index]}));
       this.setState({
-        topic: response.topic,
-        choices: response.choices
+        topic: response.title,
+        choices: choices
       });
     })
     .catch((err) => console.log(err));
