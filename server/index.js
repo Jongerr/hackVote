@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const crypto = require('crypto');
+const db = require('./db/votesDB');
 
 const testData = require('./helpers/testData.js');
 
@@ -20,7 +21,11 @@ app.post('/topic', (req, res) => {
   const topicHash = crypto.createHash('md5').update(req.body.topic).digest("hex").slice(0, 6);
   console.log('Topic Hash:', topicHash);
   console.log('Request Body:', req.body);
-  res.json({topicHash});
+  req.body.hash = topicHash;
+  db.saveTopic(req.body, () => {
+    console.log('Topic successfully saved!');
+    res.json({topicHash});
+  });
 });
 
 app.post('/vote', (req, res) => {

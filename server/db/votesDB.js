@@ -53,5 +53,6 @@ const modifyTopicVotes = (topicHash, newScores, callback) => {
   });
 }
 
-module.exports.Vote = Vote;
 module.exports.saveTopic = saveTopic;
+module.exports.findTopic = findTopic;
+module.exports.modifyTopicVotes = modifyTopicVotes;
