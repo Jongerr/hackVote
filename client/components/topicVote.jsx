@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class TopicVote extends React.Component {
   constructor(props) {
@@ -7,8 +6,8 @@ class TopicVote extends React.Component {
 
     this.state = {
       topic: '',
-      choices: []
-    }
+      choices: [],
+    };
 
     this.handleUpvote = this.handleUpvote.bind(this);
   }
@@ -19,17 +18,20 @@ class TopicVote extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
       },
-      body: JSON.stringify({topicHash})
+      body: JSON.stringify({topicHash}),
     })
     .then((response) => response.json())
     .then((response) => {
       console.log('Vote data:', response);
-      const choices = response.choices.map((choice, index) => ({choice: choice, points: response.votes[index]}));
+      const choices = response.choices.map((choice, index) => ({
+        choice: choice,
+        points: response.votes[index],
+      }));
       this.setState({
         topic: response.title,
-        choices: choices
+        choices: choices,
       });
     })
     .catch((err) => console.log(err));
@@ -38,7 +40,7 @@ class TopicVote extends React.Component {
   getUpdatedScore(e) {
     console.log('Upvoted choice at index:', e.target.classList[0]);
     let newChoices = this.state.choices.slice();
-    if(e.target.classList[0] === 'inactive') {
+    if (e.target.classList[0] === 'inactive') {
       newChoices[e.target.value].points += 1;
       e.target.classList = [];
     } else {
@@ -50,19 +52,20 @@ class TopicVote extends React.Component {
 
   handleUpvote(e) {
     let newChoices = this.getUpdatedScore(e);
-    this.setState({
-      choices: newChoices
-    }, () => {
+    this.setState({choices: newChoices}, () => {
       const topicHash = window.location.pathname.slice(1);
-      const scores = this.state.choices.map((choice) => choice.points);      
-      let putBody = {topicHash, scores};
+      const scores = this.state.choices.map((choice) => choice.points);
+      let putBody = {
+        topicHash,
+        scores,
+      };
       fetch('/vote', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
         },
-        body: JSON.stringify(putBody)
+        body: JSON.stringify(putBody),
       })
       .then((response) => console.log('Successfully put Scores:', response))
       .catch((err) => console.log(err));
@@ -79,12 +82,19 @@ class TopicVote extends React.Component {
             <li key={index.toString()}>
               <span>{choice.choice}</span>
               <span>  {choice.points} pts  </span>
-              <button value={index.toString()} type="button" onClick={this.handleUpvote} className="inactive"> vote </button>
+              <button
+                value={index.toString()}
+                type="button"
+                onClick={this.handleUpvote}
+                className="inactive"
+              >
+               vote
+              </button>
             </li>
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 

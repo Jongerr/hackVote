@@ -8,11 +8,14 @@ db.on('error', (err) => {
 });
 
 const topicSchema = mongoose.Schema({
-  hash: {type: String, unique: true},
+  hash: {
+    type: String,
+    unique: true,
+  },
   title: String,
   description: String,
   choices: [String],
-  votes: [Number]
+  votes: [Number],
 });
 
 const Topic = mongoose.model('topic', topicSchema);
@@ -23,17 +26,17 @@ const saveTopic = (topicObj, callback) => {
     title: topicObj.topic,
     description: 'TODO: DB Description',
     choices: topicObj.choices,
-    votes: new Array(topicObj.choices.length).fill(0)
+    votes: new Array(topicObj.choices.length).fill(0),
   });
   topic.save((err) => {
-    if(err) console.log(err);
-    else { callback(); }
-  })
+    if (err) console.log(err);
+    else callback();
+  });
 };
 
 const findTopic = (topicHash, callback) => {
   Topic.findOne({'hash': topicHash}, (err, topic) => {
-    if(err) console.log(err);
+    if (err) console.log(err);
     else {
       callback(topic.toObject());
     }
@@ -41,7 +44,7 @@ const findTopic = (topicHash, callback) => {
 };
 
 const modifyTopicVotes = (topicHash, newScores, callback) => {
-  Topic.findOne({ 'hash': topicHash }, (err, topic) => {
+  Topic.findOne({'hash': topicHash}, (err, topic) => {
     if (err) console.log(err);
     else {
       topic.votes = newScores;
@@ -50,7 +53,7 @@ const modifyTopicVotes = (topicHash, newScores, callback) => {
         .catch((err) => console.log(err));
     }
   });
-}
+};
 
 module.exports.saveTopic = saveTopic;
 module.exports.findTopic = findTopic;

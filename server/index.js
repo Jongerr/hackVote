@@ -4,8 +4,6 @@ const path = require('path');
 const crypto = require('crypto');
 const db = require('./db/votesDB');
 
-const testData = require('./helpers/testData.js');
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -18,7 +16,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/topic', (req, res) => {
-  const topicHash = crypto.createHash('md5').update(req.body.topic).digest("hex").slice(0, 6);
+  const topicHash = crypto.createHash('md5').update(req.body.topic)
+    .digest('hex').slice(0, 6);
   req.body.hash = topicHash;
   db.saveTopic(req.body, () => {
     res.json({topicHash});
@@ -39,7 +38,7 @@ app.put('/vote', (req, res) => {
   db.modifyTopicVotes(topicHash, scores, () => {
     console.log('Scores successfully saved');
     res.sendStatus(200);
-  })
+  });
 });
 
 app.get('/*', (req, res) => {
